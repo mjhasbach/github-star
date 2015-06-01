@@ -1,0 +1,37 @@
+{
+  "name": "github-star",
+  "version": "1.0.0",
+  "description": "Star, unstar, or check if you starred a repository or all of your NPM / Bower / etc. dependencies on GitHub",
+  "license": "MIT",
+  "homepage": "https://github.com/mjhasbach/github-star",
+  "keywords": [
+    "github",
+    "repository",
+    "star",
+    "unstar",
+    "package",
+    "json",
+    "package.json",
+    "dependencies",
+    "devDependencies"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjhasbach/github-star.git"
+  },
+  "author": {
+    "name": "Matthew Hasbach",
+    "email": "hasbach.git@gmail.com",
+    "url": "https://github.com/mjhasbach"
+  },
+  "main": "lib/githubStar.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "async": "~1.1.0",
+    "lodash": "~3.9.3",
+    "package-json": "~1.1.0",
+    "superagent": "~1.2.0"
+  }
+}

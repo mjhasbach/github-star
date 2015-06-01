@@ -1,0 +1,13 @@
+{
+  "name": "github-star",
+  "version": "1.0.0",
+  "dependencies": {
+    "lodash": "~3.9.3",
+    "superagent": "~1.2.0"
+  },
+  "ignore": [
+    ".*",
+    "*.md",
+    "package.json"
+  ]
+}
