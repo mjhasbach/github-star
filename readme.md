@@ -4,8 +4,16 @@ Star, unstar, or check if you starred a repository or all of your NPM / Bower / 
 
 ## CLI
 
-Note: `--username` (`-n`) and (`--password` (`-p`) or `--token` (`-t`)) must always be supplied.
+#### Installation
 
+`npm i -g github-star`
+
+#### Usage
+
+githubstar [options]
+
+- `--help` (`-h`): Output usage information
+- `--version` (`-V`): Output the version number
 - `--repostar` (`-s`): Star a GitHub repository. `--author` (`-a`) and `--repo` (`-r`) must also be supplied.
 - `--repounstar` (`-u`): Unstar a GitHub repository. `--author` (`-a`) and `--repo` (`-r`) must also be supplied.
 - `--repoisstarred` (`-i`): Check if a GitHub repository is starred. `--author` (`-a`) and `--repo` (`-r`) must also be supplied.
@@ -18,6 +26,8 @@ Note: `--username` (`-n`) and (`--password` (`-p`) or `--token` (`-t`)) must alw
 - `--author` (`-a`): A GitHub author
 - `--repo` (`-r`): A repository belonging to `--author`
 - `--jsonpath` (`-j`): A path to a package.json, bower.json, or similar file
+
+Note: `--username` (`-n`) and (`--password` (`-p`) or `--token` (`-t`)) must always be supplied.
 
 ## API
 
