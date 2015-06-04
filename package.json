@@ -1,6 +1,6 @@
 {
   "name": "github-star",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Star, unstar, or check if you starred a repository or all of your NPM / Bower / etc. dependencies on GitHub",
   "license": "MIT",
   "homepage": "https://github.com/mjhasbach/github-star",
