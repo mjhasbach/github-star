@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var cli = require('commander'),
     GitHubStar = require('../lib/githubStar.js');
 
