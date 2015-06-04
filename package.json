@@ -37,5 +37,12 @@
   },
   "bin": {
     "githubstar": "bin/githubstar.js"
+  },
+  "devDependencies": {
+    "gulp": "~3.9.0",
+    "gulp-bump": "~0.3.1",
+    "gulp-git": "~1.2.4",
+    "prompt": "~0.2.14",
+    "publish-release": "~1.0.2"
   }
 }
