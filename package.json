@@ -30,8 +30,12 @@
   },
   "dependencies": {
     "async": "~1.1.0",
+    "commander": "~2.8.1",
     "lodash": "~3.9.3",
     "package-json": "~1.1.0",
     "superagent": "~1.2.0"
+  },
+  "bin": {
+    "githubstar": "bin/githubstar.js"
   }
 }

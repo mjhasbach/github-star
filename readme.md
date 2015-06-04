@@ -2,6 +2,23 @@
 
 Star, unstar, or check if you starred a repository or all of your NPM / Bower / etc. dependencies on GitHub
 
+## CLI
+
+Note: `--username` (`-n`) and (`--password` (`-p`) or `--token` (`-t`)) must always be supplied.
+
+`--repostar` (`-s`): Star a GitHub repository. `--author` (`-a`) and `--repo` (`-r`) must also be supplied.
+`--repounstar` (`-u`): Unstar a GitHub repository. `--author` (`-a`) and `--repo` (`-r`) must also be supplied.
+`--repoisstarred` (`-i`): Check if a GitHub repository is starred. `--author` (`-a`) and `--repo` (`-r`) must also be supplied.
+`--depsstar` (`-S`): Star all of the dependencies in a package.json, bower.json, or similar file on GitHub. `--jsonpath` (`-j`) must also be supplied.
+`--depsunstar` (`-U`): Unstar all of the dependencies in a package.json, bower.json, or similar file on GitHub. `--jsonpath` (`-j`) must also be supplied.
+`--depsarestarred` (`-A`): Check if all of the dependencies in a package.json, bower.json, or similar file are starred on GitHub. `--jsonpath` (`-j`) must also be supplied.
+`--username` (`-n`): A GitHub username
+`--token` (`-t`): A GitHub personal access token or password belonging to `--username`
+`--password` (`-p`): A GitHub password or personal access token belonging to `--username`
+`--author` (`-a`): A GitHub author
+`--repo` (`-r`): A repository belonging to `--author`
+`--jsonpath` (`-j`): A path to a package.json, bower.json, or similar file
+
 ## API
 
 `gitHubStar.repository` methods are supported in RequireJS, CommonJS, and global environments. `gitHubStar.dependencies` methods are only supported in CommonJS environments.
