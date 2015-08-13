@@ -15,10 +15,7 @@
     "dependencies",
     "devDependencies"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mjhasbach/github-star.git"
-  },
+  "repository": "mjhasbach/github-star",
   "author": {
     "name": "Matthew Hasbach",
     "email": "hasbach.git@gmail.com",
