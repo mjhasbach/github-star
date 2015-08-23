@@ -6,7 +6,9 @@ Star, unstar, or check if you starred a repository or all of your NPM / Bower / 
 
 #### Installation
 
-`npm i -g github-star`
+```
+npm i -g github-star
+```
 
 #### Usage
 
@@ -21,12 +23,11 @@ githubstar [options]
 - `--depsunstar` (`-U`): Unstar all of the dependencies in a package.json, bower.json, or similar file on GitHub. `--jsonpath` (`-j`) must also be supplied.
 - `--depsarestarred` (`-A`): Check if all of the dependencies in a package.json, bower.json, or similar file are starred on GitHub. `--jsonpath` (`-j`) must also be supplied.
 - `--username` (`-n`): A GitHub username (may be ommitted if GITHUB_USERNAME environment variable is set)
-- `--token` (`-t`): A GitHub personal access token or password belonging to --username (may be ommitted if GITHUB_TOKEN environment variable is set)
-- `--password` (`-p`): A GitHub password or personal access token belonging to `--username`
+- `--token` (`-t`) / `--password` (`-p`): A GitHub personal access token (recommended) or password belonging to `--username` (may be ommitted if GITHUB_TOKEN environment variable is set)
 - `--author` (`-a`): A GitHub author
 - `--repo` (`-r`): A repository belonging to `--author`
 - `--jsonpath` (`-j`): A path to a package.json, bower.json, or similar file
-- `--skipself` (`-z`): Skip repos belonging to --username when starring / unstarring dependencies
+- `--skipself` (`-z`): Skip repos belonging to `--username` when starring / unstarring dependencies
 - `--skipauthor` (`-x`): An author to skip when starring / unstarring dependencies (repeatable)
 - `--skiprepo` (`-X`): A repo to skip when starring / unstarring dependencies (repeatable)
 
@@ -166,9 +167,9 @@ gitHubStar.dependencies.areStarred('./package.json', function(err, areStarred){
 # Installation
 ### Npm
 ```
-npm install github-star --save
+npm i github-star
 ```
 ### Bower
 ```
-bower install github-star --save
+bower i github-star
 ```
