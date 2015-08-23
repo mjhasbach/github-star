@@ -20,8 +20,8 @@ githubstar [options]
 - `--depsstar` (`-S`): Star all of the dependencies in a package.json, bower.json, or similar file on GitHub. `--jsonpath` (`-j`) must also be supplied.
 - `--depsunstar` (`-U`): Unstar all of the dependencies in a package.json, bower.json, or similar file on GitHub. `--jsonpath` (`-j`) must also be supplied.
 - `--depsarestarred` (`-A`): Check if all of the dependencies in a package.json, bower.json, or similar file are starred on GitHub. `--jsonpath` (`-j`) must also be supplied.
-- `--username` (`-n`): A GitHub username
-- `--token` (`-t`): A GitHub personal access token or password belonging to `--username`
+- `--username` (`-n`): A GitHub username (may be ommitted if GITHUB_USERNAME environment variable is set)
+- `--token` (`-t`): A GitHub personal access token or password belonging to --username (may be ommitted if GITHUB_TOKEN environment variable is set)
 - `--password` (`-p`): A GitHub password or personal access token belonging to `--username`
 - `--author` (`-a`): A GitHub author
 - `--repo` (`-r`): A repository belonging to `--author`
@@ -29,8 +29,6 @@ githubstar [options]
 - `--skipself` (`-z`): Skip repos belonging to --username when starring / unstarring dependencies
 - `--skipauthor` (`-x`): An author to skip when starring / unstarring dependencies (repeatable)
 - `--skiprepo` (`-X`): A repo to skip when starring / unstarring dependencies (repeatable)
-
-Note: `--username` (`-n`) and (`--password` (`-p`) or `--token` (`-t`)) must always be supplied.
 
 ## API
 
@@ -40,8 +38,8 @@ Note: `--username` (`-n`) and (`--password` (`-p`) or `--token` (`-t`)) must alw
 
 Instantiate github-star
 
-* string `username` - A GitHub username
-* string `tokenOrPassword` - A GitHub personal access token (recommended) or password
+* string `username` - A GitHub username (may be ommitted if GITHUB_USERNAME environment variable is set)
+* string `tokenOrPassword` - A GitHub personal access token (recommended) or password belonging to `username` (may be ommitted if GITHUB_TOKEN environment variable is set)
 
 __Example (CommonJS)__
 
