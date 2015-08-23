@@ -26,6 +26,9 @@ githubstar [options]
 - `--author` (`-a`): A GitHub author
 - `--repo` (`-r`): A repository belonging to `--author`
 - `--jsonpath` (`-j`): A path to a package.json, bower.json, or similar file
+- `--skipself` (`-z`): Skip repos belonging to --username when starring / unstarring dependencies
+- `--skipauthor` (`-x`): An author to skip when starring / unstarring dependencies (repeatable)
+- `--skiprepo` (`-X`): A repo to skip when starring / unstarring dependencies (repeatable)
 
 Note: `--username` (`-n`) and (`--password` (`-p`) or `--token` (`-t`)) must always be supplied.
 
@@ -97,32 +100,50 @@ gitHubStar.repository.isStarred('gulpjs', 'gulp', function(err, isStarred){
 });
 ```
 
-#### gitHubStar.dependencies.star(```jsonPath```, ```cb```)
+#### gitHubStar.dependencies.star(```opt```, ```cb```)
 
 Star all of the dependencies in a `package.json`, `bower.json`, or similar file on GitHub. Any JSON file with `dependencies` or `devDependencies` keys are supported. Note that dependencies for non-`package.json` files are only recognized if their names correspond with NPM package names.
 
-* string `jsonPath` - A path to a `package.json`, `bower.json`, or similar file
+* object `opt` - An options object
+    * string `jsonPath` - A path to a `package.json`, `bower.json`, or similar file
+    * boolean [`skipSelf`] - Skip repos belonging to `username` if true
+    * array{string} [`skippedAuthors`] - Authors to skip
+    * array{string} [`skippedRepos`] - Repos to skip
 * function(null | object `err`) `cb` - A function to be executed after the dependencies are starred
 
 __Example__
 
 ```
-gitHubStar.dependencies.star('./package.json', function(err){
+gitHubStar.dependencies.star({
+    jsonPath: './package.json',
+    skipSelf: true,
+    skippedAuthors: ['mjhasbach'],
+    skippedRepos: ['github-star']
+}, function(err){
     if (err) { console.error(err); }
 });
 ```
 
-#### gitHubStar.dependencies.unstar(```jsonPath```, ```cb```)
+#### gitHubStar.dependencies.unstar(```opt```, ```cb```)
 
 Unstar all of the dependencies in a `package.json`, `bower.json`, or similar file on GitHub. Any JSON file with `dependencies` or `devDependencies` keys are supported. Note that dependencies for non-`package.json` files are only recognized if their names correspond with NPM package names.
 
-* string `jsonPath` - A path to a `package.json`, `bower.json`, or similar file
+* object `opt` - An options object
+    * string `jsonPath` - A path to a `package.json`, `bower.json`, or similar file
+    * boolean [`skipSelf`] - Skip repos belonging to `username` if true
+    * array{string} [`skippedAuthors`] - Authors to skip
+    * array{string} [`skippedRepos`] - Repos to skip
 * function(null | object `err`) `cb` - A function to be executed after the dependencies are unstarred
 
 __Example__
 
 ```
-gitHubStar.dependencies.unstar('./package.json', function(err){
+gitHubStar.dependencies.star({
+    jsonPath: './package.json',
+    skipSelf: true,
+    skippedAuthors: ['mjhasbach'],
+    skippedRepos: ['github-star']
+}, function(err){
     if (err) { console.error(err); }
 });
 ```

@@ -3,6 +3,11 @@
 var cli = require('commander'),
     GitHubStar = require('../lib/githubStar.js');
 
+function collectSkipped(authorOrRepo, skipped) {
+    skipped.push(authorOrRepo);
+    return skipped;
+}
+
 cli
     .version(require('../package.json').version)
     .usage('[options]')
@@ -18,6 +23,9 @@ cli
     .option('-a, --author <a>', 'a GitHub author')
     .option('-r, --repo <r>', 'a repository belonging to --author')
     .option('-j, --jsonpath <j>', 'a path to a package.json, bower.json, or similar file')
+    .option('-z, --skipself', 'skip repos belonging to --username')
+    .option('-x, --skipauthor [x]', 'an author to skip when starring / unstarring dependencies (repeatable)', collectSkipped, [])
+    .option('-X, --skiprepo [X]', 'a repo to skip when starring / unstarring dependencies (repeatable)', collectSkipped, [])
     .parse(process.argv);
 
 var gitHubStar = GitHubStar(cli.username, cli.token || cli.password);
@@ -48,7 +56,12 @@ if (cli.repoisstarred){
 }
 
 if (cli.depsstar){
-    gitHubStar.dependencies.star(cli.jsonpath, function(err){
+    gitHubStar.dependencies.star({
+        jsonPath: cli.jsonpath,
+        skipSelf: cli.skipself,
+        skippedAuthors: cli.skipauthor,
+        skippedRepos: cli.skiprepo
+    }, function(err){
         if (err) { console.error(err); }
     });
 
@@ -56,7 +69,12 @@ if (cli.depsstar){
 }
 
 if (cli.depsunstar){
-    gitHubStar.dependencies.unstar(cli.jsonpath, function(err){
+    gitHubStar.dependencies.unstar({
+        jsonPath: cli.jsonpath,
+        skipSelf: cli.skipself,
+        skippedAuthors: cli.skipauthor,
+        skippedRepos: cli.skiprepo
+    }, function(err){
         if (err) { console.error(err); }
     });
 
