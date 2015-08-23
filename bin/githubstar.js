@@ -3,10 +3,18 @@
 var cli = require('commander'),
     GitHubStar = require('../lib/githubStar.js');
 
-function collectSkipped(authorOrRepo, skipped) {
-    skipped.push(authorOrRepo);
-    return skipped;
-}
+var methods = [
+        '--repostar',
+        '--repounstar',
+        '--repoisstarred',
+        '--depsstar',
+        '--depsunstar',
+        '--depsarestarred'
+    ],
+    collectSkipped = function(authorOrRepo, skipped){
+        skipped.push(authorOrRepo);
+        return skipped;
+    };
 
 cli
     .version(require('../package.json').version)
@@ -86,4 +94,8 @@ if (cli.depsarestarred){
         if (err) { console.error(err); }
         else { console.log(areStarred); }
     });
+
+    return;
 }
+
+console.error(new Error('One of the following options must be supplied: ' + methods.join(', ')));
