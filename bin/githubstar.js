@@ -11,7 +11,7 @@ var methods = [
         '--depsunstar',
         '--depsarestarred'
     ],
-    collectSkipped = function(authorOrRepo, skipped){
+    collectSkipped = function(authorOrRepo, skipped) {
         skipped.push(authorOrRepo);
         return skipped;
     };
@@ -38,24 +38,24 @@ cli
 
 var gitHubStar = GitHubStar(cli.username, cli.token || cli.password);
 
-if (cli.repostar){
-    gitHubStar.repository.star(cli.author, cli.repo, function(err){
+if (cli.repostar) {
+    gitHubStar.repository.star(cli.author, cli.repo, function(err) {
         if (err) { console.error(err); }
     });
 
     return;
 }
 
-if (cli.repounstar){
-    gitHubStar.repository.unstar(cli.author, cli.repo, function(err){
+if (cli.repounstar) {
+    gitHubStar.repository.unstar(cli.author, cli.repo, function(err) {
         if (err) { console.error(err); }
     });
 
     return;
 }
 
-if (cli.repoisstarred){
-    gitHubStar.repository.isStarred(cli.author, cli.repo, function(err, isStarred){
+if (cli.repoisstarred) {
+    gitHubStar.repository.isStarred(cli.author, cli.repo, function(err, isStarred) {
         if (err) { console.error(err); }
         else { console.log(isStarred); }
     });
@@ -63,34 +63,34 @@ if (cli.repoisstarred){
     return;
 }
 
-if (cli.depsstar){
+if (cli.depsstar) {
     gitHubStar.dependencies.star({
         jsonPath: cli.jsonpath,
         skipSelf: cli.skipself,
         skippedAuthors: cli.skipauthor,
         skippedRepos: cli.skiprepo
-    }, function(err){
+    }, function(err) {
         if (err) { console.error(err); }
     });
 
     return;
 }
 
-if (cli.depsunstar){
+if (cli.depsunstar) {
     gitHubStar.dependencies.unstar({
         jsonPath: cli.jsonpath,
         skipSelf: cli.skipself,
         skippedAuthors: cli.skipauthor,
         skippedRepos: cli.skiprepo
-    }, function(err){
+    }, function(err) {
         if (err) { console.error(err); }
     });
 
     return;
 }
 
-if (cli.depsarestarred){
-    gitHubStar.dependencies.areStarred(cli.jsonpath, function(err, areStarred){
+if (cli.depsarestarred) {
+    gitHubStar.dependencies.areStarred(cli.jsonpath, function(err, areStarred) {
         if (err) { console.error(err); }
         else { console.log(areStarred); }
     });
