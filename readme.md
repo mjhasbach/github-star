@@ -119,8 +119,8 @@ gitHubStar.dependencies.star({
     jsonPath: './some_file.json',
     isBower: true,
     skipSelf: true,
-    skippedAuthors: ['mjhasbach'],
-    skippedRepos: ['github-star']
+    skippedAuthors: ['isaacs', 'othiym23'],
+    skippedRepos: ['lodash', 'underscore']
 }, function(err){
     if (err) { console.error(err); }
 });
@@ -145,8 +145,8 @@ gitHubStar.dependencies.star({
     jsonPath: './some_file.json',
     isBower: true,
     skipSelf: true,
-    skippedAuthors: ['mjhasbach'],
-    skippedRepos: ['github-star']
+    skippedAuthors: ['isaacs', 'othiym23'],
+    skippedRepos: ['lodash', 'underscore']
 }, function(err){
     if (err) { console.error(err); }
 });
@@ -171,8 +171,8 @@ gitHubStar.dependencies.areStarred({
     jsonPath: './some_file.json',
     isBower: true,
     skipSelf: true,
-    skippedAuthors: ['mjhasbach'],
-    skippedRepos: ['github-star']
+    skippedAuthors: ['isaacs', 'othiym23'],
+    skippedRepos: ['lodash', 'underscore']
 }, function(err, areStarred){
     if (err) { console.error(err); }
 
