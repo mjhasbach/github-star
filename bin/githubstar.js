@@ -31,6 +31,7 @@ cli
     .option('-a, --author <a>', 'a GitHub author')
     .option('-r, --repo <r>', 'a repository belonging to --author')
     .option('-j, --jsonpath <j>', 'a path to a package.json, bower.json, or similar file')
+    .option('-b, --bower', 'if this option is supplied or the file name in --jsonpath is "bower.json", it will be treated as a bower package file, otherwise it will be treated as a npm package file')
     .option('-z, --skipself', 'skip repos belonging to --username')
     .option('-x, --skipauthor [x]', 'an author to skip when starring / unstarring dependencies (repeatable)', collectSkipped, [])
     .option('-X, --skiprepo [X]', 'a repo to skip when starring / unstarring dependencies (repeatable)', collectSkipped, [])
@@ -66,6 +67,7 @@ if (cli.repoisstarred) {
 if (cli.depsstar) {
     gitHubStar.dependencies.star({
         jsonPath: cli.jsonpath,
+        isBower: cli.bower,
         skipSelf: cli.skipself,
         skippedAuthors: cli.skipauthor,
         skippedRepos: cli.skiprepo
@@ -79,6 +81,7 @@ if (cli.depsstar) {
 if (cli.depsunstar) {
     gitHubStar.dependencies.unstar({
         jsonPath: cli.jsonpath,
+        isBower: cli.bower,
         skipSelf: cli.skipself,
         skippedAuthors: cli.skipauthor,
         skippedRepos: cli.skiprepo
