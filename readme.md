@@ -40,8 +40,8 @@ githubstar [options]
 
 Instantiate github-star
 
-* string `username` - A GitHub username (may be ommitted if GITHUB_USERNAME environment variable is set)
-* string `tokenOrPassword` - A GitHub personal access token (recommended) or password belonging to `username` (may be ommitted if GITHUB_TOKEN environment variable is set)
+* string [`username`] - A GitHub username (may be ommitted if GITHUB_USERNAME environment variable is set)
+* string [`tokenOrPassword`] - A GitHub personal access token (recommended) or password belonging to `username` (may be ommitted if GITHUB_TOKEN environment variable is set)
 
 __Example (CommonJS)__
 
