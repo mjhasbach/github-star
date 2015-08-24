@@ -152,17 +152,28 @@ gitHubStar.dependencies.star({
 });
 ```
 
-#### gitHubStar.dependencies.areStarred(```jsonPath```, ```cb```)
+#### gitHubStar.dependencies.areStarred(```opt```, ```cb```)
 
 Check if the dependencies in a NPM or Bower package file are starred on GitHub.
 
-* string `jsonPath` - A path to a NPM or Bower package file
+* object `opt` - An options object
+    * string `jsonPath` - A path to a NPM or Bower package file
+    * boolean [`isBower`] - If true or the file name in `jsonPath` is "bower.json", it will be treated as a bower package file, otherwise it will be treated as a npm package file
+    * boolean [`skipSelf`] - Skip repos belonging to `username` if true
+    * array{string} [`skippedAuthors`] - Authors to skip
+    * array{string} [`skippedRepos`] - Repos to skip
 * function(null | object `err`, object{boolean} `areStarred`) `cb` - A function to be executed after the dependencies are checked
 
 __Example__
 
 ```
-gitHubStar.dependencies.areStarred('./package.json', function(err, areStarred){
+gitHubStar.dependencies.areStarred({
+    jsonPath: './some_file.json',
+    isBower: true,
+    skipSelf: true,
+    skippedAuthors: ['mjhasbach'],
+    skippedRepos: ['github-star']
+}, function(err, areStarred){
     if (err) { console.error(err); }
 
     console.log(areStarred);

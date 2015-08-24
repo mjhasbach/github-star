@@ -37,7 +37,14 @@ cli
     .option('-X, --skiprepo [X]', 'a repo to skip when starring / unstarring dependencies (repeatable)', collectSkipped, [])
     .parse(process.argv);
 
-var gitHubStar = GitHubStar(cli.username, cli.token || cli.password);
+var gitHubStar = GitHubStar(cli.username, cli.token || cli.password),
+    dependencyMethodOpt = {
+        jsonPath: cli.jsonpath,
+        isBower: cli.bower,
+        skipSelf: cli.skipself,
+        skippedAuthors: cli.skipauthor,
+        skippedRepos: cli.skiprepo
+    };
 
 if (cli.repostar) {
     gitHubStar.repository.star(cli.author, cli.repo, function(err) {
@@ -65,13 +72,7 @@ if (cli.repoisstarred) {
 }
 
 if (cli.depsstar) {
-    gitHubStar.dependencies.star({
-        jsonPath: cli.jsonpath,
-        isBower: cli.bower,
-        skipSelf: cli.skipself,
-        skippedAuthors: cli.skipauthor,
-        skippedRepos: cli.skiprepo
-    }, function(err) {
+    gitHubStar.dependencies.star(dependencyMethodOpt, function(err) {
         if (err) { console.error(err); }
     });
 
@@ -79,13 +80,7 @@ if (cli.depsstar) {
 }
 
 if (cli.depsunstar) {
-    gitHubStar.dependencies.unstar({
-        jsonPath: cli.jsonpath,
-        isBower: cli.bower,
-        skipSelf: cli.skipself,
-        skippedAuthors: cli.skipauthor,
-        skippedRepos: cli.skiprepo
-    }, function(err) {
+    gitHubStar.dependencies.unstar(dependencyMethodOpt, function(err) {
         if (err) { console.error(err); }
     });
 
@@ -93,7 +88,7 @@ if (cli.depsunstar) {
 }
 
 if (cli.depsarestarred) {
-    gitHubStar.dependencies.areStarred(cli.jsonpath, function(err, areStarred) {
+    gitHubStar.dependencies.areStarred(dependencyMethodOpt, function(err, areStarred) {
         if (err) { console.error(err); }
         else { console.log(areStarred); }
     });
