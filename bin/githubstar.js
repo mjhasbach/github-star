@@ -32,6 +32,8 @@ cli
     .option('-r, --repo <r>', 'a repository belonging to --author')
     .option('-j, --jsonpath <j>', 'a path to a package.json, bower.json, or similar file')
     .option('-b, --bower', 'if this option is supplied or the file name in --jsonpath is "bower.json", it will be treated as a bower package file, otherwise it will be treated as a npm package file')
+    .option('-d, --skipdeps', 'skip dependencies')
+    .option('-D, --skipdevdeps', 'skip devDependencies')
     .option('-z, --skipself', 'skip repos belonging to --username')
     .option('-x, --skipauthor [x]', 'an author to skip when starring / unstarring dependencies (repeatable)', collectSkipped, [])
     .option('-X, --skiprepo [X]', 'a repo to skip when starring / unstarring dependencies (repeatable)', collectSkipped, [])
@@ -40,6 +42,8 @@ cli
 var gitHubStar = GitHubStar(cli.username, cli.token || cli.password),
     dependencyMethodOpt = {
         jsonPath: cli.jsonpath,
+        dependencies: !cli.skipdeps,
+        devDependencies: !cli.skipdevdeps,
         isBower: cli.bower,
         skipSelf: cli.skipself,
         skippedAuthors: cli.skipauthor,
