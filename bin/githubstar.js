@@ -65,32 +65,43 @@ if (cli.repounstar) {
 if (cli.repoisstarred) {
     gitHubStar.repository.isStarred(cli.author, cli.repo, function(err, isStarred) {
         if (err) { console.error(err); }
-        else { console.log(isStarred); }
+        console.log(isStarred);
     });
 
     return;
 }
 
 if (cli.depsstar) {
-    gitHubStar.dependencies.star(dependencyMethodOpt, function(err) {
-        if (err) { console.error(err); }
+    gitHubStar.dependencies.star(dependencyMethodOpt, function(errors, wereStarred) {
+        errors.forEach(function(err) {
+            console.error(err);
+        });
+
+        console.log(JSON.stringify(wereStarred));
     });
 
     return;
 }
 
 if (cli.depsunstar) {
-    gitHubStar.dependencies.unstar(dependencyMethodOpt, function(err) {
-        if (err) { console.error(err); }
+    gitHubStar.dependencies.unstar(dependencyMethodOpt, function(errors, wereUnstarred) {
+        errors.forEach(function(err) {
+            console.error(err);
+        });
+
+        console.log(JSON.stringify(wereUnstarred));
     });
 
     return;
 }
 
 if (cli.depsarestarred) {
-    gitHubStar.dependencies.areStarred(dependencyMethodOpt, function(err, areStarred) {
-        if (err) { console.error(err); }
-        else { console.log(areStarred); }
+    gitHubStar.dependencies.areStarred(dependencyMethodOpt, function(errors, areStarred) {
+        errors.forEach(function(err) {
+            console.error(err);
+        });
+
+        console.log(JSON.stringify(areStarred));
     });
 
     return;

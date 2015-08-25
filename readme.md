@@ -110,7 +110,7 @@ Star all of the dependencies in a NPM or Bower package file on GitHub.
     * boolean [`skipSelf`] - Skip repos belonging to `username` if true
     * array{string} [`skippedAuthors`] - Authors to skip
     * array{string} [`skippedRepos`] - Repos to skip
-* function(null | object `err`) `cb` - A function to be executed after the dependencies are starred
+* function(array{object} `errors`, object{boolean} `wereStarred`) `cb` - A function to be executed after the dependencies are starred
 
 __Example__
 
@@ -121,8 +121,14 @@ gitHubStar.dependencies.star({
     skipSelf: true,
     skippedAuthors: ['isaacs', 'othiym23'],
     skippedRepos: ['lodash', 'underscore']
-}, function(err){
-    if (err) { console.error(err); }
+}, function(errors, wereStarred){
+    _.each(errors, function(err) {
+        console.error(err);
+    });
+
+    _.each(wereStarred, function(wasStarred, dependency) {
+        console.log(dependency + ' was ' + (wasStarred ? '' : 'not ') + 'starred');
+    });
 });
 ```
 
@@ -136,19 +142,25 @@ Unstar all of the dependencies in a NPM or Bower package file on GitHub.
     * boolean [`skipSelf`] - Skip repos belonging to `username` if true
     * array{string} [`skippedAuthors`] - Authors to skip
     * array{string} [`skippedRepos`] - Repos to skip
-* function(null | object `err`) `cb` - A function to be executed after the dependencies are unstarred
+* function(array{object} `errors`, object{boolean} `wereUnstarred`) `cb` - A function to be executed after the dependencies are unstarred
 
 __Example__
 
 ```
-gitHubStar.dependencies.star({
+gitHubStar.dependencies.unstar({
     jsonPath: './some_file.json',
     isBower: true,
     skipSelf: true,
     skippedAuthors: ['isaacs', 'othiym23'],
     skippedRepos: ['lodash', 'underscore']
-}, function(err){
-    if (err) { console.error(err); }
+}, function(errors, wereUnstarred){
+    _.each(errors, function(err) {
+        console.error(err);
+    });
+
+    _.each(wereUnstarred, function(wasUnstarred, dependency) {
+        console.log(dependency + ' was ' + (wasUnstarred ? '' : 'not ') + 'unstarred');
+    });
 });
 ```
 
@@ -162,7 +174,7 @@ Check if the dependencies in a NPM or Bower package file are starred on GitHub.
     * boolean [`skipSelf`] - Skip repos belonging to `username` if true
     * array{string} [`skippedAuthors`] - Authors to skip
     * array{string} [`skippedRepos`] - Repos to skip
-* function(null | object `err`, object{boolean} `areStarred`) `cb` - A function to be executed after the dependencies are checked
+* function(array{object} `errors`, object{boolean} `areStarred`) `cb` - A function to be executed after the dependencies are checked
 
 __Example__
 
@@ -173,10 +185,14 @@ gitHubStar.dependencies.areStarred({
     skipSelf: true,
     skippedAuthors: ['isaacs', 'othiym23'],
     skippedRepos: ['lodash', 'underscore']
-}, function(err, areStarred){
-    if (err) { console.error(err); }
+}, function(errors, areStarred){
+    _.each(errors, function(err) {
+        console.error(err);
+    });
 
-    console.log(areStarred);
+    _.each(areStarred, function(isStarred, dependency) {
+        console.log(dependency + ' is ' + (isStarred ? '' : 'not ') + 'starred');
+    });
 });
 ```
 
