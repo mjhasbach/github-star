@@ -36,11 +36,5 @@
   },
   "bin": {
     "githubstar": "bin/githubstar.js"
-  },
-  "devDependencies": {
-    "release-script": "0.2.5"
-  },
-  "scripts": {
-    "release": "release"
   }
 }
