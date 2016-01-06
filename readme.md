@@ -1,6 +1,6 @@
 # github-star
 
-Star, unstar, or check if you starred a repository or the repositories associated with NPM and Bower package file dependencies on GitHub
+Star, unstar, or check if you starred a repository or the repositories associated with NPM, Bower, or Meteor package file dependencies on GitHub
 
 ## CLI
 
@@ -19,15 +19,15 @@ githubstar [options]
 - `--repostar` (`-s`): Star a GitHub repository. `--author` (`-a`) and `--repo` (`-r`) must also be supplied.
 - `--repounstar` (`-u`): Unstar a GitHub repository. `--author` (`-a`) and `--repo` (`-r`) must also be supplied.
 - `--repoisstarred` (`-i`): Check if a GitHub repository is starred. `--author` (`-a`) and `--repo` (`-r`) must also be supplied.
-- `--depsstar` (`-S`): Star all of the dependencies in a NPM or Bower package file on GitHub. `--jsonpath` (`-j`) must also be supplied.
-- `--depsunstar` (`-U`): Unstar all of the dependencies in a NPM or Bower package file on GitHub. `--jsonpath` (`-j`) must also be supplied.
-- `--depsarestarred` (`-A`): Check if all of the dependencies in a NPM or Bower package file are starred on GitHub. `--jsonpath` (`-j`) must also be supplied.
+- `--depsstar` (`-S`): Star all of the dependencies in a NPM or Bower package file on GitHub. `--depspath` (`-j`) must also be supplied.
+- `--depsunstar` (`-U`): Unstar all of the dependencies in a NPM or Bower package file on GitHub. `--depspath` (`-j`) must also be supplied.
+- `--depsarestarred` (`-A`): Check if all of the dependencies in a NPM or Bower package file are starred on GitHub. `--depspath` (`-j`) must also be supplied.
 - `--username` (`-n`): A GitHub username (may be ommitted if GITHUB_USERNAME environment variable is set)
 - `--token` (`-t`) / `--password` (`-p`): A GitHub personal access token (recommended) or password belonging to `--username` (may be ommitted if GITHUB_TOKEN environment variable is set)
 - `--author` (`-a`): A GitHub author
 - `--repo` (`-r`): A repository belonging to `--author`
-- `--jsonpath` (`-j`): A path to a NPM or Bower package file
-- `--bower` (`-b`): If this option is supplied or the file name in `--jsonpath` is "bower.json", it will be treated as a Bower package file, otherwise it will be treated as a NPM package file
+- `--depspath` (`-j`): A path to a NPM, Bower, or Meteor package file
+- `--bower` (`-b`): If this option is supplied or the file name in `--depspath` is "bower.json", it will be treated as a Bower package file, otherwise it will be treated as a NPM package file
 - `--skipdeps` (`-d`): Skip dependencies
 - `--skipdevdeps` (`-D`): Skip devDependencies
 - `--skipself` (`-z`): Skip repos belonging to `--username` when starring / unstarring dependencies
@@ -53,7 +53,7 @@ childProcess.exec(
 );
 
 childProcess.exec(
-    'githubstar --depsstar --jsonpath package.json --skipauthor npm',
+    'githubstar --depsstar --depspath package.json --skipauthor npm',
     function(err, stdout, stderr) {
         if (err) {
             console.error(err);
@@ -77,7 +77,7 @@ var results,
         [
             './node_modules/github-star/bin/githubstar',
             '--depsarestarred',
-            '--jsonpath',
+            '--depspath',
             'bower.json',
             '--skipself',
             '--skiprepo',
@@ -178,10 +178,10 @@ gitHubStar.repository.isStarred('gulpjs', 'gulp', function(err, isStarred){
 Star all of the dependencies in a NPM or Bower package file on GitHub.
 
 * object `opt` - An options object
-    * string `jsonPath` - A path to a NPM or Bower package file
+    * string `depsPath` - A path to a NPM, Bower, or Meteor package file
     * boolean [`dependencies`] - If false, dependencies will not be starred
     * boolean [`devDependencies`] - If false, devDependencies will not be starred
-    * boolean [`isBower`] - If true or the file name in `jsonPath` is "bower.json", it will be treated as a bower package file, otherwise it will be treated as a npm package file
+    * boolean [`isBower`] - If true or the file name in `depsPath` is "bower.json", it will be treated as a bower package file, otherwise it will be treated as a npm package file
     * boolean [`skipSelf`] - Skip repos belonging to `username` if true
     * array{string} [`skippedAuthors`] - Authors to skip
     * array{string} [`skippedRepos`] - Repos to skip
@@ -191,7 +191,7 @@ __Example__
 
 ```
 gitHubStar.dependencies.star({
-    jsonPath: './some_file.json',
+    depsPath: './some_file.json',
     dependencies: true,
     devDependencies: false,
     isBower: true,
@@ -214,10 +214,10 @@ gitHubStar.dependencies.star({
 Unstar all of the dependencies in a NPM or Bower package file on GitHub.
 
 * object `opt` - An options object
-    * string `jsonPath` - A path to a NPM or Bower package file
+    * string `depsPath` - A path to a NPM, Bower, or Meteor package file
     * boolean [`dependencies`] - If false, dependencies will not be unstarred
     * boolean [`devDependencies`] - If false, devDependencies will not be unstarred
-    * boolean [`isBower`] - If true or the file name in `jsonPath` is "bower.json", it will be treated as a bower package file, otherwise it will be treated as a npm package file
+    * boolean [`isBower`] - If true or the file name in `depsPath` is "bower.json", it will be treated as a bower package file, otherwise it will be treated as a npm package file
     * boolean [`skipSelf`] - Skip repos belonging to `username` if true
     * array{string} [`skippedAuthors`] - Authors to skip
     * array{string} [`skippedRepos`] - Repos to skip
@@ -227,7 +227,7 @@ __Example__
 
 ```
 gitHubStar.dependencies.unstar({
-    jsonPath: './some_file.json',
+    depsPath: './some_file.json',
     dependencies: true,
     devDependencies: false,
     isBower: true,
@@ -250,10 +250,10 @@ gitHubStar.dependencies.unstar({
 Check if the dependencies in a NPM or Bower package file are starred on GitHub.
 
 * object `opt` - An options object
-    * string `jsonPath` - A path to a NPM or Bower package file
+    * string `depsPath` - A path to a NPM, Bower, or Meteor package file
     * boolean [`dependencies`] - If false, dependencies will not be checked
     * boolean [`devDependencies`] - If false, devDependencies will not be checked
-    * boolean [`isBower`] - If true or the file name in `jsonPath` is "bower.json", it will be treated as a bower package file, otherwise it will be treated as a npm package file
+    * boolean [`isBower`] - If true or the file name in `depsPath` is "bower.json", it will be treated as a bower package file, otherwise it will be treated as a npm package file
     * boolean [`skipSelf`] - Skip repos belonging to `username` if true
     * array{string} [`skippedAuthors`] - Authors to skip
     * array{string} [`skippedRepos`] - Repos to skip
@@ -263,7 +263,7 @@ __Example__
 
 ```
 gitHubStar.dependencies.areStarred({
-    jsonPath: './some_file.json',
+    depsPath: './some_file.json',
     dependencies: true,
     devDependencies: false,
     isBower: true,

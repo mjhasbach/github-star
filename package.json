@@ -1,7 +1,7 @@
 {
   "name": "github-star",
   "version": "3.1.1",
-  "description": "Star, unstar, or check if you starred a repository or all of your NPM / Bower / etc. dependencies on GitHub",
+  "description": "Star, unstar, or check if you starred a repository or the repositories associated with NPM, Bower, or Meteor package file dependencies on GitHub",
   "license": "MIT",
   "homepage": "https://github.com/mjhasbach/github-star",
   "keywords": [
@@ -9,9 +9,13 @@
     "repository",
     "star",
     "unstar",
+    "bower",
     "package",
     "json",
     "package.json",
+    "bower.json",
+    "meteor",
+    "atmosphere",
     "dependencies",
     "devDependencies"
   ],
@@ -27,6 +31,7 @@
   },
   "dependencies": {
     "async": "1.4.2",
+    "atmosphere-package-info": "1.0.0",
     "bower-package-url": "1.0.1",
     "commander": "2.8.1",
     "github-url-to-object": "1.5.2",

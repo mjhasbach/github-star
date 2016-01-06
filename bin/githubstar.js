@@ -30,8 +30,8 @@ cli
     .option('-p, --password <p>', 'a GitHub password or personal access token belonging to --username')
     .option('-a, --author <a>', 'a GitHub author')
     .option('-r, --repo <r>', 'a repository belonging to --author')
-    .option('-j, --jsonpath <j>', 'a path to a package.json, bower.json, or similar file')
-    .option('-b, --bower', 'if this option is supplied or the file name in --jsonpath is "bower.json", it will be treated as a bower package file, otherwise it will be treated as a npm package file')
+    .option('-j, --depspath <j>', 'a path to a package.json, bower.json, or similar file')
+    .option('-b, --bower', 'if this option is supplied or the file name in --depspath is "bower.json", it will be treated as a bower package file, otherwise it will be treated as a npm package file')
     .option('-d, --skipdeps', 'skip dependencies')
     .option('-D, --skipdevdeps', 'skip devDependencies')
     .option('-z, --skipself', 'skip repos belonging to --username')
@@ -41,7 +41,7 @@ cli
 
 var gitHubStar = GitHubStar(cli.username, cli.token || cli.password),
     dependencyMethodOpt = {
-        jsonPath: cli.jsonpath,
+        depsPath: cli.depspath,
         dependencies: !cli.skipdeps,
         devDependencies: !cli.skipdevdeps,
         isBower: cli.bower,
