@@ -36,73 +36,14 @@ githubstar [options]
 
 __Examples__
 
+Manually supply a username / password and star a single repo:
 ```
-var _ = require('lodash'),
-    childProcess = require('child_process');
+githubstar -u user -p password -s -a sindresorhus -r package-json
+```
 
-childProcess.exec(
-    'githubstar -u user -p password -s -a sindresorhus -r package-json',
-    function(err, stdout, stderr) {
-        if (err || stderr) {
-            console.error(err || stderr);
-            return;
-        }
-
-        console.log('repo was ' + (stderr ? 'not ' : '') + 'starred');
-    }
-);
-
-childProcess.exec(
-    'githubstar --depsstar --depspath package.json --skipauthor npm',
-    function(err, stdout, stderr) {
-        if (err) {
-            console.error(err);
-            return;
-        }
-
-        _.each(stderr.split('\n'), function(err) {
-            console.error(err);
-        });
-
-        _.each(JSON.parse(stdout), function(wasStarred, dependency) {
-            console.log(dependency + ' was ' + (wasStarred ? '' : 'not ') + 'starred');
-        });
-    }
-);
-
-var results,
-    errors = [],
-    proc = childProcess.spawn(
-        'node',
-        [
-            './node_modules/github-star/bin/githubstar',
-            '--depsarestarred',
-            '--depspath',
-            'bower.json',
-            '--skipself',
-            '--skiprepo',
-            'lodash'
-        ]
-    );
-
-proc.stdout.on('data', function(data) {
-    results = JSON.parse(data.toString());
-});
-
-proc.stderr.on('data', function(err) {
-    errors.push(err.toString());
-});
-
-proc.on('close', function() {
-    _.each(errors, function(err) {
-        console.error(err);
-    });
-
-    _.each(results, function(isStarred, depName) {
-        console.log(depName + ' is ' + (isStarred ? '' : 'not ') + 'starred');
-    });
-});
-
+Authenticate using environment variables and star all of the dependencies in a `package.json` file, skipping repositories that belong to a specified author:
+```
+githubstar --depsstar --depspath package.json --skipauthor npm
 ```
 
 ## API
