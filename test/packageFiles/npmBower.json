@@ -1,0 +1,19 @@
+{
+  "name": "github-star-test",
+  "version": "0.0.1",
+  "private": true,
+  "description": "github-star NPM / Bower test package file",
+  "license": "MIT",
+  "author": {
+    "name": "Matthew Hasbach",
+    "email": "hasbach.git@gmail.com",
+    "url": "https://github.com/mjhasbach"
+  },
+  "dependencies": {
+    "superagent": "1.8.3"
+  },
+  "devDependencies": {
+    "mocha": "https://github.com/mochajs/mocha.git",
+    "gulp": "gulpjs/gulp"
+  }
+}

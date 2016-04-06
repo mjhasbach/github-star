@@ -330,3 +330,8 @@ npm i github-star
 ```
 bower i github-star
 ```
+
+# Testing
+```
+npm test
+```

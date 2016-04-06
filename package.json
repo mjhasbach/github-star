@@ -40,7 +40,16 @@
     "pascal-case": "1.1.2",
     "superagent": "1.8.3"
   },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "mocha": "2.4.5",
+    "prompt": "1.0.0",
+    "uuid": "2.0.1"
+  },
   "bin": {
     "githubstar": "bin/githubstar.js"
+  },
+  "scripts": {
+    "test": "mocha test --recursive --timeout 20000"
   }
 }
