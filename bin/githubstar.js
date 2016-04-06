@@ -11,9 +11,9 @@ var methods = [
         '--depsunstar',
         '--depsarestarred'
     ],
-    collectSkipped = function(authorOrRepo, skipped) {
-        skipped.push(authorOrRepo);
-        return skipped;
+    collectRepeatable = (repeatable, repeatables) => {
+        repeatables.push(repeatable);
+        return repeatables;
     };
 
 cli
@@ -22,36 +22,38 @@ cli
     .option('-s, --repostar', 'star a GitHub repository')
     .option('-u, --repounstar', 'unstar a GitHub repository')
     .option('-i, --repoisstarred', 'check if a GitHub repository is starred')
-    .option('-S, --depsstar', 'star all of the dependencies in a package.json, bower.json, or similar file on GitHub')
-    .option('-U, --depsunstar', 'unstar all of the dependencies in a package.json, bower.json, or similar file on GitHub')
-    .option('-A, --depsarestarred', 'check if all of the dependencies in a package.json, bower.json, or similar file are starred on GitHub')
-    .option('-n, --username <n>', 'a GitHub username (may be ommitted if GITHUB_USERNAME environment variable is set)')
+    .option('-S, --depsstar', 'star dependencies in an NPM, Bower, or Meteor package file on GitHub')
+    .option('-U, --depsunstar', 'unstar dependencies in an NPM, Bower, or Meteor package file on GitHub')
+    .option('-A, --depsarestarred', 'check if dependencies in an NPM, Bower, or Meteor package file are starred on GitHub')
+    .option('-d, --skipdeps', 'skip dependencies (has no effect when --package is supplied, or when --depspath is supplied and it is a Meteor package file)')
+    .option('-D, --skipdevdeps', 'skip devDependencies (has no effect when --package is supplied, or when --depspath is supplied and it is a Meteor package file)')
+    .option('-z, --skipself', 'skip repos belonging to --username (or the GITHUB_USERNAME environment variable) when supplying --depsstar, --depsunstar, or --depsarestarred')
+    .option('-x, --skipauthor <x>', 'an author to skip when supplying --depsstar, --depsunstar, or --depsarestarred (repeatable)', collectRepeatable, [])
+    .option('-X, --skiprepo <X>', 'a repo to skip when supplying --depsstar, --depsunstar, or --depsarestarred (repeatable)', collectRepeatable, [])
+    .option('-P, --package <P>', 'an NPM, Bower, or Atmosphere dependency (repeatable; must be supplied when not using --depspath)', collectRepeatable, [])
+    .option('-n, --username <n>', 'a GitHub username (may be ommitted if the GITHUB_USERNAME environment variable is set)')
     .option('-t, --token <t>', 'a GitHub personal access token or password belonging to --username (may be ommitted if GITHUB_TOKEN environment variable is set)')
-    .option('-p, --password <p>', 'a GitHub password or personal access token belonging to --username')
-    .option('-a, --author <a>', 'a GitHub author')
-    .option('-r, --repo <r>', 'a repository belonging to --author')
-    .option('-j, --depspath <j>', 'a path to a package.json, bower.json, or similar file')
-    .option('-b, --bower', 'if this option is supplied or the file name in --depspath is "bower.json", it will be treated as a bower package file, otherwise it will be treated as a npm package file')
-    .option('-d, --skipdeps', 'skip dependencies')
-    .option('-D, --skipdevdeps', 'skip devDependencies')
-    .option('-z, --skipself', 'skip repos belonging to --username')
-    .option('-x, --skipauthor [x]', 'an author to skip when starring / unstarring dependencies (repeatable)', collectSkipped, [])
-    .option('-X, --skiprepo [X]', 'a repo to skip when starring / unstarring dependencies (repeatable)', collectSkipped, [])
+    .option('-p, --password <p>', 'a GitHub password or personal access token belonging to --username (may be ommitted if GITHUB_TOKEN environment variable is set)')
+    .option('-a, --author <a>', 'a GitHub author (must be supplied when providing --repostar, --repounstar, or --repoisstarred)')
+    .option('-r, --repo <r>', 'a repository belonging to --author (must be supplied when providing --repostar, --repounstar, or --repoisstarred)')
+    .option('-j, --depspath <j>', 'a path to an NPM, Bower, or Meteor package file (must be supplied when not providing --package)')
+    .option('-T, --type <T>', 'the package manager associated with --depspath or --package: NPM, Bower, or Atmosphere (case-insensitive; must be supplied for NPM or Bower dependencies when providing --package; must be supplied for Bower dependencies when providing --depspath, unless the file name is "bower.json")')
     .parse(process.argv);
 
 var gitHubStar = GitHubStar(cli.username, cli.token || cli.password),
     dependencyMethodOpt = {
         depsPath: cli.depspath,
+        depsList: cli.package,
         dependencies: !cli.skipdeps,
         devDependencies: !cli.skipdevdeps,
-        isBower: cli.bower,
+        type: cli.type,
         skipSelf: cli.skipself,
         skippedAuthors: cli.skipauthor,
         skippedRepos: cli.skiprepo
     };
 
 if (cli.repostar) {
-    gitHubStar.repository.star(cli.author, cli.repo, function(err) {
+    gitHubStar.repository.star(cli.author, cli.repo, (err) => {
         if (err) { console.error(err); }
     });
 
@@ -59,7 +61,7 @@ if (cli.repostar) {
 }
 
 if (cli.repounstar) {
-    gitHubStar.repository.unstar(cli.author, cli.repo, function(err) {
+    gitHubStar.repository.unstar(cli.author, cli.repo, (err) => {
         if (err) { console.error(err); }
     });
 
@@ -67,8 +69,12 @@ if (cli.repounstar) {
 }
 
 if (cli.repoisstarred) {
-    gitHubStar.repository.isStarred(cli.author, cli.repo, function(err, isStarred) {
-        if (err) { console.error(err); }
+    gitHubStar.repository.isStarred(cli.author, cli.repo, (err, isStarred) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+
         console.log(isStarred);
     });
 
@@ -76,10 +82,11 @@ if (cli.repoisstarred) {
 }
 
 if (cli.depsstar) {
-    gitHubStar.dependencies.star(dependencyMethodOpt, function(errors, wereStarred) {
-        errors.forEach(function(err) {
+    gitHubStar.dependencies.star(dependencyMethodOpt, (err, wereStarred) => {
+        if (err) {
             console.error(err);
-        });
+            return;
+        }
 
         console.log(JSON.stringify(wereStarred));
     });
@@ -88,10 +95,11 @@ if (cli.depsstar) {
 }
 
 if (cli.depsunstar) {
-    gitHubStar.dependencies.unstar(dependencyMethodOpt, function(errors, wereUnstarred) {
-        errors.forEach(function(err) {
+    gitHubStar.dependencies.unstar(dependencyMethodOpt, (err, wereUnstarred) => {
+        if (err) {
             console.error(err);
-        });
+            return;
+        }
 
         console.log(JSON.stringify(wereUnstarred));
     });
@@ -100,10 +108,11 @@ if (cli.depsunstar) {
 }
 
 if (cli.depsarestarred) {
-    gitHubStar.dependencies.areStarred(dependencyMethodOpt, function(errors, areStarred) {
-        errors.forEach(function(err) {
+    gitHubStar.dependencies.areStarred(dependencyMethodOpt, (err, areStarred) => {
+        if (err) {
             console.error(err);
-        });
+            return;
+        }
 
         console.log(JSON.stringify(areStarred));
     });
