@@ -6,8 +6,10 @@
     "superagent": "~1.2.0"
   },
   "ignore": [
-    ".*",
-    "*.md",
-    "package.json"
+    "*",
+    "!lib/",
+    "!lib/*",
+    "!LICENSE",
+    "!README.md"
   ]
 }

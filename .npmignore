@@ -1,3 +1,5 @@
-.*
-*.md
-bower.json
+*
+!bin/
+!bin/*
+!lib/
+!lib/*
