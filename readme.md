@@ -48,6 +48,11 @@ Authenticate using environment variables and star all of the dependencies in a `
 githubstar --depsstar --depspath package.json --skipauthor npm
 ```
 
+Authenticate using environment variables and check if multiple Bower packages are starred:
+```
+githubstar --depsarestarred -P angular -P angular-material -T bower
+```
+
 ## API
 
 `gitHubStar.repository` methods are supported in RequireJS, CommonJS, and global environments. `gitHubStar.dependencies` methods are only supported in CommonJS environments.
