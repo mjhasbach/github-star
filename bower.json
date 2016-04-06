@@ -2,8 +2,8 @@
   "name": "github-star",
   "main": "lib/githubStar.js",
   "dependencies": {
-    "lodash": "~3.9.3",
-    "superagent": "~1.2.0"
+    "lodash": "4.7.0",
+    "superagent": "1.8.3"
   },
   "ignore": [
     "*",
